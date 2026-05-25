@@ -1,9 +1,6 @@
 "use client";
-
 import Link from "next/link";
 import { useState } from "react";
-
-// Need "use client" for the hamburger menu
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -17,7 +14,19 @@ export function SiteHeader() {
   return (
     <header className="header">
       <div className="container">
-        <div className="glass-card header-bar" style={{ borderRadius: open ? "28px" : undefined }}>
+        {/* Main bar */}
+        <div
+          className="glass-card"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: 72,
+            padding: "10px 16px 10px 20px",
+            borderRadius: 999,
+          }}
+        >
+          {/* Brand */}
           <Link href="/" className="brand-block" aria-label="ARZ Auto home">
             <span className="brand-mark">ARZ</span>
             <span className="brand-copy">
@@ -26,41 +35,116 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav aria-label="Primary" className="nav-cluster desktop-nav">
+          {/* Desktop nav — hidden on mobile */}
+          <nav
+            aria-label="Primary"
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: 10,
+            }}
+            className="desktop-nav"
+          >
             {navItems.map((item) => (
               <Link key={item.href} className="pill pill-ghost" href={item.href}>
                 {item.label}
               </Link>
             ))}
-            <Link className="pill pill-primary" href="/inventory">Start search</Link>
-            <Link className="pill pill-ghost" href="/admin">Admin</Link>
+            <Link className="pill pill-primary" href="/inventory">
+              Start search
+            </Link>
+            <Link className="pill pill-ghost" href="/admin">
+              Admin
+            </Link>
           </nav>
 
-          {/* Mobile hamburger */}
+          {/* Hamburger — visible on mobile only */}
           <button
-            className="hamburger"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
+            style={{
+              display: "none",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: 5,
+              padding: 8,
+              cursor: "pointer",
+              background: "transparent",
+              border: "none",
+              color: "var(--text)",
+            }}
+            className="hamburger-btn"
           >
-            <span style={{ display: "block", width: 22, height: 2, background: "currentColor", marginBottom: 5, transition: "all 0.2s", transform: open ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
-            <span style={{ display: "block", width: 22, height: 2, background: "currentColor", marginBottom: 5, transition: "all 0.2s", opacity: open ? 0 : 1 }} />
-            <span style={{ display: "block", width: 22, height: 2, background: "currentColor", transition: "all 0.2s", transform: open ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+            <span style={{
+              display: "block", width: 22, height: 2,
+              background: "currentColor", borderRadius: 2,
+              transition: "transform 0.2s",
+              transform: open ? "rotate(45deg) translate(4px, 7px)" : "none",
+            }} />
+            <span style={{
+              display: "block", width: 22, height: 2,
+              background: "currentColor", borderRadius: 2,
+              transition: "opacity 0.2s",
+              opacity: open ? 0 : 1,
+            }} />
+            <span style={{
+              display: "block", width: 22, height: 2,
+              background: "currentColor", borderRadius: 2,
+              transition: "transform 0.2s",
+              transform: open ? "rotate(-45deg) translate(4px, -7px)" : "none",
+            }} />
           </button>
         </div>
 
-        {/* Mobile menu dropdown */}
+        {/* Mobile dropdown */}
         {open && (
-          <div className="glass-card mobile-menu">
+          <div
+            className="glass-card"
+            style={{
+              marginTop: 8,
+              borderRadius: 24,
+              padding: 16,
+              display: "grid",
+              gap: 4,
+            }}
+          >
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="mobile-nav-item" onClick={() => setOpen(false)}>
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "14px 16px",
+                  borderRadius: 14,
+                  color: "var(--text)",
+                  fontWeight: 500,
+                  fontSize: "1rem",
+                }}
+              >
                 {item.label}
               </Link>
             ))}
-            <Link href="/inventory" className="pill pill-primary" style={{ width: "100%", marginTop: 8 }} onClick={() => setOpen(false)}>
+            <Link
+              href="/inventory"
+              className="pill pill-primary"
+              onClick={() => setOpen(false)}
+              style={{ width: "100%", marginTop: 8 }}
+            >
               Start search
             </Link>
-            <Link href="/admin" className="mobile-nav-item" onClick={() => setOpen(false)}>
+            <Link
+              href="/admin"
+              onClick={() => setOpen(false)}
+              style={{
+                display: "block",
+                padding: "14px 16px",
+                borderRadius: 14,
+                color: "var(--muted)",
+                fontSize: "0.9rem",
+              }}
+            >
               Admin
             </Link>
           </div>
