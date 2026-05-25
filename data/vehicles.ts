@@ -1,0 +1,27 @@
+export type Vehicle = {
+  id?: string;
+  slug: string;
+  status: "available" | "sold";
+  year: number;
+  make: string;
+  model: string;
+  trim: string;
+  bodyStyle: string;
+  drivetrain: string;
+  fuelType: string;
+  transmission: string;
+  exteriorColor: string;
+  interiorColor: string;
+  price: number;
+  mileage: number;
+  mpg: string;
+  engine: string;
+  vin: string;
+  stockNumber: string;
+  location: string;
+  image: string;
+  gallery: string[];
+  shortDescription: string;
+  description: string;
+  features: string[];
+};
